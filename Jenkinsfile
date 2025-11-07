@@ -1,25 +1,16 @@
 pipeline {
-    agent {
-        label 'java-slave'
-    }
-    stages {
-        stage ('git clone') {
-            steps {
-                git url: 'https://github.com/spring-projects/spring-petclinic',branch: 'master'
+    agent any
 
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'master', url: 'https://github.com/padmapriya-26/pat.git'
             }
         }
-        stage ('debug') {
+
+        stage('Build with Maven') {
             steps {
-                sh 'pwd;ls -la'
-            }
-        }
-        stage('build with maven') {
-            steps {
-                dir('app') {
-                    sh 'pwd;ls -la'
-                     sh 'mvn clean package'
-                }
+                sh 'mvn clean package'
             }
         }
     }
