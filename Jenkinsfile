@@ -9,9 +9,17 @@ pipeline {
 
             }
         }
+        stage ('debug') {
+            steps {
+                sh 'pwd;ls -la'
+            }
+        }
         stage('build with maven') {
             steps {
-                sh 'mvn clean package'
+                dir('app') {
+                    sh 'pwd;ls -la'
+                     sh 'mvn clean package'
+                }
             }
         }
     }
